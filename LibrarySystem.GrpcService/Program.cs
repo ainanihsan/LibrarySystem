@@ -1,11 +1,32 @@
 using LibrarySystem.GrpcService.Services;
+using LibrarySystem.Shared.Infrastructure.Data;
+using SQLitePCL;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Batteries.Init();  // Initialize SQLite provider early
 
 // Add services to the container.
 builder.Services.AddGrpc();
 
+// Register SQLite connection factory and repository
+builder.Services.AddSingleton(new SqliteConnectionFactory("Data Source=library.db"));
+builder.Services.AddTransient<BookRepository>();
+// Register DatabaseInitializer and DatabaseSeeder
+builder.Services.AddTransient<DatabaseInitializer>();
+builder.Services.AddTransient<DatabaseSeeder>();
+
 var app = builder.Build();
+
+// Initialize database schema and seed data before handling requests
+using (var scope = app.Services.CreateScope())
+{
+    var dbInitializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
+    await dbInitializer.InitializeSchemaAsync();
+
+    var dbSeeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
+    await dbSeeder.SeedAllAsync();
+}
 
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
