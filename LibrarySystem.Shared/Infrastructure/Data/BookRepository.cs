@@ -1,9 +1,10 @@
 ﻿using Dapper;
+using LibrarySystem.Shared.Application.Interfaces;
 using LibrarySystem.Shared.Domain;
 
 namespace LibrarySystem.Shared.Infrastructure.Data
 {
-    public class BookRepository
+    public class BookRepository : IBookRepository
     {
         private readonly SqliteConnectionFactory _connectionFactory;
 
@@ -12,7 +13,7 @@ namespace LibrarySystem.Shared.Infrastructure.Data
             _connectionFactory = connectionFactory;
         }
 
-        public async Task<IEnumerable<Book>> GetAllBooksAsync()
+        public async Task<IEnumerable<Book>> GetAllAsync()
         {
             using var connection = _connectionFactory.CreateConnection();
 
@@ -22,6 +23,10 @@ namespace LibrarySystem.Shared.Infrastructure.Data
             return books;
         }
 
+        public Task<Book?> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

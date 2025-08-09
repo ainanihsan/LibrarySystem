@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option csharp_namespace = "LibrarySystem.GrpcService";
+
+service BookService {
+  rpc GetBook (GetBookRequest) returns (GetBookReply);
+  rpc GetAllBooks (GetAllBooksRequest) returns (GetAllBooksReply);
+}
+
+message GetBookRequest {
+  int32 id = 1;
+}
+
+message GetBookReply {
+  int32 id = 1;
+  string title = 2;
+  string author = 3;
+}
+
+message GetAllBooksRequest {}
+
+message GetAllBooksReply {
+  repeated GetBookReply books = 1;
+}
+

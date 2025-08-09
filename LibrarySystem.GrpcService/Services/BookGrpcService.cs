@@ -1,0 +1,36 @@
+
+using Grpc.Core;
+using LibrarySystem.GrpcService;
+using LibrarySystem.Shared.Application.Interfaces;
+using LibrarySystem.Shared.Application.Services;
+using BookService = LibrarySystem.GrpcService.BookService;
+
+
+public class BookGrpcService : BookService.BookServiceBase
+{
+    private readonly IBookService _bookService;
+
+    public BookGrpcService(IBookService bookService)
+    {
+        _bookService = bookService;
+    }
+  
+    public override async Task<GetAllBooksReply> GetAllBooks(GetAllBooksRequest request, ServerCallContext context)
+    {
+        var books = await _bookService.GetAllBooksAsync();
+
+        var reply = new GetAllBooksReply();
+        foreach (var book in books)
+        {
+            reply.Books.Add(new GetBookReply
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Author = book.Author
+                // Map other fields as needed
+            });
+        }
+
+        return reply;
+    }
+}
