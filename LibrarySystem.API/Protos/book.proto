@@ -4,12 +4,11 @@ option csharp_namespace = "LibrarySystem.GrpcService";
 
 service BookService {
   rpc GetAllBooks (GetAllBooksRequest) returns (GetAllBooksReply);
-}
 
-message GetBookRequest {
-  int32 id = 1;
-}
+  rpc GetMostBorrowedBooks(GetMostBorrowedBooksRequest) returns (GetMostBorrowedBooksReply);
 
+}
+//......................Get all books.....................
 message GetBookReply {
   int32 id = 1;
   string title = 2;
@@ -20,5 +19,19 @@ message GetAllBooksRequest {}
 
 message GetAllBooksReply {
   repeated GetBookReply books = 1;
+}
+
+//......................Get most borrowed books.....................
+
+message MostBorrowedBooks{
+	string title = 1;
+	int32 count = 2;
+}
+
+message GetMostBorrowedBooksRequest{
+
+}
+message GetMostBorrowedBooksReply{
+	repeated MostBorrowedBooks books = 1;
 }
 

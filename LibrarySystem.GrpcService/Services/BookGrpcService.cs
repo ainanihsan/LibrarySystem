@@ -26,11 +26,29 @@ public class BookGrpcService : BookService.BookServiceBase
             {
                 Id = book.Id,
                 Title = book.Title,
-                Author = book.Author
-                // Map other fields as needed
+                Author = book.Author               
             });
         }
 
         return reply;
     }
+
+    public override async Task<GetMostBorrowedBooksReply> GetMostBorrowedBooks(GetMostBorrowedBooksRequest request, ServerCallContext context)
+    {
+        var books = await _bookService.GetMostBorrowedBooksAsync();
+
+        var reply = new GetMostBorrowedBooksReply();
+        foreach (var book in books)
+        {
+            reply.Books.Add(new MostBorrowedBooks
+            {
+                Title = book.Item1,
+                Count = book.Item2
+            });
+        }
+
+        return reply;
+    }
+
+
 }

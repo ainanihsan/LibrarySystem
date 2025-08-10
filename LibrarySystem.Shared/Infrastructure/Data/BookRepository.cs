@@ -13,17 +13,32 @@ namespace LibrarySystem.Shared.Infrastructure.Data
             _connectionFactory = connectionFactory;
         }
 
-        public async Task<IEnumerable<Book>> GetAllAsync()
+        public async Task<IEnumerable<Books>> GetAllAsync()
         {
             using var connection = _connectionFactory.CreateConnection();
 
             string sql = "SELECT Id, Title, Author, Pages, CopiesTotal FROM Books";
 
-            var books = await connection.QueryAsync<Book>(sql);
+            var books = await connection.QueryAsync<Books>(sql);
             return books;
         }
 
-        public Task<Book?> GetByIdAsync(int id)
+        public async Task<IEnumerable<(string,int)>> GetMostBorrowedBooks()
+        {
+            using var connection = _connectionFactory.CreateConnection();
+
+            string sql = "SELECT b.Title, COUNT(*) AS LendingCount " +
+                "FROM Lendings l " +
+                "INNER JOIN Books b ON l.BookId = b.Id " +
+                "GROUP BY b.Title " +
+                "ORDER BY LendingCount DESC LIMIT 2";
+
+            var books = await connection.QueryAsync<(string,int)>(sql);
+            return books;
+        }
+
+
+        public Task<Books?> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }

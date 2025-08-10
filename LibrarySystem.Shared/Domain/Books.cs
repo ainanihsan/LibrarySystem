@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibrarySystem.Shared.Domain
 {
-    public class Book
+    public class Books
     {
         public int Id { get; set; }  // Primary key
         public required string Title { get; set; }

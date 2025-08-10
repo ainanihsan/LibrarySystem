@@ -23,10 +23,10 @@ namespace LibrarySystem.Tests
         public async Task GetAllBooksAsync_ReturnsAllBooks()
         {
             // Arrange
-            var books = new List<Book>
+            var books = new List<Books>
             {
-                new Book { Id = 1, Title = "Book 1", Author = "Author A" },
-                new Book { Id = 2, Title = "Book 2", Author = "Author B" }
+                new Books { Id = 1, Title = "Book 1", Author = "Author A" },
+                new Books { Id = 2, Title = "Book 2", Author = "Author B" }
             };
 
             _bookRepositoryMock
@@ -40,5 +40,34 @@ namespace LibrarySystem.Tests
             Assert.IsNotNull(result);
             Assert.AreEqual(2, result.Count());
         }
-    }
+
+
+        [TestMethod]
+        public async Task GetMostBorrowedBooksAsync_ReturnsBooksInDescendingOrder()
+        {
+            // Arrange
+            var mostBorrowedBooks = new List<(string Title, int BorrowCount)>
+            {
+                ("Clean Code", 5),
+                ("The Hobbit", 3),
+                ("1984", 2)
+            };
+
+            _bookRepositoryMock
+                .Setup(repo => repo.GetMostBorrowedBooks())
+                .ReturnsAsync(mostBorrowedBooks);
+
+            // Act
+            var result = await _bookService.GetMostBorrowedBooksAsync();
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.SequenceEqual(result.OrderByDescending(b => b.Item2)),
+                "Books are not ordered by BorrowCount descending");
+
+            Assert.IsTrue(result.Any(b => b.Item1 == "Clean Code"));
+        }   
+
+
+}
 }

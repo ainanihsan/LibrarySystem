@@ -9,7 +9,8 @@ namespace LibrarySystem.Shared.Application.Interfaces
 {
     public interface IBookRepository
     {
-        Task<IEnumerable<Book>> GetAllAsync();
-        Task<Book?> GetByIdAsync(int id);
+        Task<IEnumerable<Books>> GetAllAsync();
+        Task<IEnumerable<(string, int)>> GetMostBorrowedBooks();
+        Task<Books?> GetByIdAsync(int id);
     }
 }

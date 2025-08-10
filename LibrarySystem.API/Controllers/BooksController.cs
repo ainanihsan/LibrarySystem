@@ -7,7 +7,6 @@ namespace LibrarySystem.API.Controllers
     [Route("[controller]")]
     public class BooksController : ControllerBase
     {
-
         private readonly BookService.BookServiceClient _grpcClient;
 
         public BooksController(BookService.BookServiceClient grpcClient)
@@ -28,8 +27,16 @@ namespace LibrarySystem.API.Controllers
             return Ok(books);
         }
 
-      
+        [HttpGet("most-borrowed")]
+        public async Task<IActionResult> GetMostBorrowedBooks()
+        {
+            var grpcRequest = new GetMostBorrowedBooksRequest();            
+            var grpcResponse = await _grpcClient.GetMostBorrowedBooksAsync(grpcRequest);
 
+            // Map gRPC response to API response as needed
+            var books = grpcResponse.Books;
 
+            return Ok(books);
+        }
     }
 }

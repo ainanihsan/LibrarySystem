@@ -33,7 +33,7 @@ namespace LibrarySystem.Shared.Infrastructure.Data
             CREATE TABLE IF NOT EXISTS Users (
                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
                 Name TEXT NOT NULL,
-                Email TEXT NOT NULL UNIQUE
+                Email TEXT NOT NULL UNIQUE               
             );";
 
             var createLendingsTable = @"

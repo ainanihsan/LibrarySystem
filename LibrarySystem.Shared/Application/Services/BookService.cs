@@ -15,12 +15,17 @@ namespace LibrarySystem.Shared.Application.Services
             _bookRepository = bookRepository;
         }
 
-        public async Task<IEnumerable<Book>> GetAllBooksAsync()
+        public async Task<IEnumerable<Books>> GetAllBooksAsync()
         {
             return await _bookRepository.GetAllAsync();
         }
 
-        public async Task<Book?> GetBookByIdAsync(int id)
+        public async Task<IEnumerable<(string,int)>> GetMostBorrowedBooksAsync()
+        {
+            return await _bookRepository.GetMostBorrowedBooks();
+        }
+
+        public async Task<Books?> GetBookByIdAsync(int id)
         {
             return await _bookRepository.GetByIdAsync(id);
         }
