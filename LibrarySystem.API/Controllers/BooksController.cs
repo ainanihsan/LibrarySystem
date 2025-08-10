@@ -38,5 +38,27 @@ namespace LibrarySystem.API.Controllers
 
             return Ok(books);
         }
+
+        [HttpGet("book-stats/{bookId}")]
+        public async Task<IActionResult> GetBookStats(int bookId)
+        {
+            var grpcRequest = new GetBookStatsRequest { Id = bookId };
+            var grpcResponse = await _grpcClient.GetBookStatsAsync(grpcRequest);
+
+            // Calculate available copies
+            int available = grpcResponse.CopiesTotal - grpcResponse.Borrowed;
+
+            var response = new
+            {
+                CopiesTotal = grpcResponse.CopiesTotal,
+                BorrowedCount = grpcResponse.Borrowed,
+                AvailableCopies = available < 0 ? 0 : available
+            };
+
+            return Ok(response);
+        }
+
+
+
     }
 }

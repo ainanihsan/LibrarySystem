@@ -7,6 +7,7 @@ namespace LibrarySystem.Shared.Application.Interfaces
     {
         Task<IEnumerable<Books>> GetAllBooksAsync();
         Task<IEnumerable<(string, int)>> GetMostBorrowedBooksAsync();
+        Task<(int, int)> GetBookStats(int id);
         Task<Books?> GetBookByIdAsync(int id);
     }
 }

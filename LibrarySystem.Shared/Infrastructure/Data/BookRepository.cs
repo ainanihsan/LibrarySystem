@@ -37,6 +37,24 @@ namespace LibrarySystem.Shared.Infrastructure.Data
             return books;
         }
 
+        public async Task<(int, int)> GetBookStats(int id)
+        {
+            using var connection = _connectionFactory.CreateConnection();
+
+            string sql = @"
+                    SELECT b.CopiesTotal, COUNT(l.Id) AS LendingCount
+                    FROM Lendings l
+                    INNER JOIN Books b ON l.BookId = b.Id
+                    WHERE b.Id = @Id
+                    GROUP BY b.CopiesTotal;
+                ";
+
+            var result = await connection.QuerySingleOrDefaultAsync<(int, int)>(sql, new { Id = id });
+
+            return result;
+        }
+
+
 
         public Task<Books?> GetByIdAsync(int id)
         {

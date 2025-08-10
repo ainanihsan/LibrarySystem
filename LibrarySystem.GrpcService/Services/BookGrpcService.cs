@@ -50,5 +50,22 @@ public class BookGrpcService : BookService.BookServiceBase
         return reply;
     }
 
+    public override async Task<GetBookStatsReply> GetBookStats(GetBookStatsRequest request, ServerCallContext context)
+    {
+        var books = await _bookService.GetBookStats(request.Id);
+
+        var reply = new GetBookStatsReply
+        {
+            Borrowed =  books.Item2,
+            CopiesTotal = books.Item1,
+        };
+
+        return reply;
+    }
+
+
+
+
 
 }
+

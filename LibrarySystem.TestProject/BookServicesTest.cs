@@ -66,8 +66,30 @@ namespace LibrarySystem.Tests
                 "Books are not ordered by BorrowCount descending");
 
             Assert.IsTrue(result.Any(b => b.Item1 == "Clean Code"));
-        }   
+        }
+
+        [TestMethod]
+        public async Task GetBookStats_ReturnsCopiesTotalAndBorrowedCount()
+        {
+            // Arrange
+            int bookId = 1;
+            int copiesTotal = 5;
+            int borrowedCount = 2;
+
+            _bookRepositoryMock
+                .Setup(repo => repo.GetBookStats(bookId))
+                .ReturnsAsync((copiesTotal, borrowedCount));
+
+            // Act
+            var result = await _bookService.GetBookStats(bookId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(copiesTotal, result.Item1);
+            Assert.AreEqual(borrowedCount, result.Item2);
+        }
 
 
-}
+
+    }
 }

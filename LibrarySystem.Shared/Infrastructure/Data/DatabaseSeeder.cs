@@ -25,7 +25,7 @@ namespace LibrarySystem.Shared.Infrastructure.Data
                     INSERT INTO Books (Title, Author, Pages, CopiesTotal) VALUES
                     ('The Hobbit', 'J.R.R. Tolkien', 310, 5),
                     ('1984', 'George Orwell', 328, 3),
-                    ('Clean Code', 'Robert C. Martin', 464, 2),
+                    ('Clean Code', 'Robert C. Martin', 464, 4),
                     ('The Pragmatic Programmer', 'Andrew Hunt & David Thomas', 352, 4),
                     ('To Kill a Mockingbird', 'Harper Lee', 281, 3),
                     ('Brave New World', 'Aldous Huxley', 311, 2);

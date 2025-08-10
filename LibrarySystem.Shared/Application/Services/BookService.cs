@@ -25,6 +25,11 @@ namespace LibrarySystem.Shared.Application.Services
             return await _bookRepository.GetMostBorrowedBooks();
         }
 
+        public async Task<(int, int)> GetBookStats(int id)
+        {
+            return await _bookRepository.GetBookStats(id);
+        }
+
         public async Task<Books?> GetBookByIdAsync(int id)
         {
             return await _bookRepository.GetByIdAsync(id);
