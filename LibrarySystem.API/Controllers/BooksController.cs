@@ -1,3 +1,4 @@
+using LibrarySystem.GrpcService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibrarySystem.API.Controllers
@@ -6,21 +7,28 @@ namespace LibrarySystem.API.Controllers
     [Route("[controller]")]
     public class BooksController : ControllerBase
     {
-       
 
-        private readonly ILogger<BooksController> _logger;      
+        private readonly BookService.BookServiceClient _grpcClient;
 
-        public BooksController(ILogger<BooksController> logger)
+        public BooksController(BookService.BookServiceClient grpcClient)
         {
-            _logger = logger;
+            _grpcClient = grpcClient;
         }
-
 
         [HttpGet]
         public async Task<IActionResult> GetAllBooks()
         {
-            throw new NotImplementedException();
+            var grpcRequest = new GetAllBooksRequest();
+
+            var grpcResponse = await _grpcClient.GetAllBooksAsync(grpcRequest);
+
+            // Map gRPC response to API response as needed
+            var books = grpcResponse.Books;
+
+            return Ok(books);
         }
+
+      
 
 
     }

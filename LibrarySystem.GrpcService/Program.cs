@@ -20,6 +20,8 @@ builder.Services.AddTransient<IBookService, BookService>();
 builder.Services.AddTransient<DatabaseInitializer>();
 builder.Services.AddTransient<DatabaseSeeder>();
 
+
+
 var app = builder.Build();
 
 // Initialize database schema and seed data before handling requests

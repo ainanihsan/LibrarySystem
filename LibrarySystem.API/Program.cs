@@ -1,3 +1,6 @@
+using LibrarySystem.GrpcService;
+using Grpc.Net.ClientFactory;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddGrpcClient<BookService.BookServiceClient>(o =>
+{
+    o.Address = new Uri("https://localhost:7165"); 
+});
+
 
 var app = builder.Build();
 
