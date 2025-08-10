@@ -14,7 +14,9 @@ builder.Services.AddGrpc();
 // Register SQLite connection factory and repository
 builder.Services.AddSingleton(new SqliteConnectionFactory("Data Source=library.db"));
 builder.Services.AddTransient<IBookRepository,BookRepository>();
+builder.Services.AddTransient<IUserRepository,UserRepository>();
 builder.Services.AddTransient<IBookService, BookService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 // Register DatabaseInitializer and DatabaseSeeder
 builder.Services.AddTransient<DatabaseInitializer>();
@@ -36,6 +38,7 @@ using (var scope = app.Services.CreateScope())
 
 // Configure the HTTP request pipeline.
 app.MapGrpcService<BookGrpcService>();
+app.MapGrpcService<UserGrpcService>();
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 app.Run();

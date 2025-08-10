@@ -13,7 +13,10 @@ builder.Services.AddGrpcClient<BookService.BookServiceClient>(o =>
 {
     o.Address = new Uri("https://localhost:7165"); 
 });
-
+builder.Services.AddGrpcClient<UserService.UserServiceClient>(o =>
+{
+    o.Address = new Uri("https://localhost:7165");
+});
 
 var app = builder.Build();
 

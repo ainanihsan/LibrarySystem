@@ -1,0 +1,25 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "LibrarySystem.GrpcService";
+
+import "google/protobuf/timestamp.proto";
+
+
+service UserService {
+  rpc GetTopUsers (GetTopUsersRequest) returns (GetTopUsersReply);
+}
+
+message User
+{
+	string name = 1;
+	int32 count = 2;
+}
+
+message GetTopUsersRequest{
+	google.protobuf.Timestamp startDate = 1;
+	google.protobuf.Timestamp endDate = 2;
+}
+
+message GetTopUsersReply{
+	repeated User user = 1;
+}

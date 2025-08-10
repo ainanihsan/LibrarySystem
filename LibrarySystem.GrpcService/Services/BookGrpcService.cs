@@ -40,7 +40,7 @@ public class BookGrpcService : BookService.BookServiceBase
         var reply = new GetMostBorrowedBooksReply();
         foreach (var book in books)
         {
-            reply.Books.Add(new MostBorrowedBooks
+            reply.Books.Add(new BookWithBorrowCount
             {
                 Title = book.Item1,
                 Count = book.Item2
