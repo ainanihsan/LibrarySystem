@@ -34,6 +34,38 @@ In a new terminal:
 
 The API will connect to the gRPC service (by default at `https://localhost:7165`). 
 
+The API will start listening on https://localhost:7077.
+
+
+---
+
+## API Endpoints
+
+### BooksController (`/books`)
+
+- `GET /books`  
+  Returns all books.
+
+- `GET /books/most-borrowed`  
+  Returns the most borrowed books.
+
+- `GET /books/book-stats/{bookId}`  
+  Returns statistics for a specific book (total copies, borrowed count, available copies).
+
+- `GET /books/book-same-people/{bookId}`  
+  Returns other books borrowed by the same people who borrowed the specified book.
+
+  - `GET /books/reading-estimate/{bookId}`  
+  Returns the average reading rate (pages per day) for the specified book.
+
+### UsersController (`/users`)
+
+- `GET /users/top-users?startDate={startDate}&endDate={endDate}`  
+  Returns the top users within the specified date range.
+
+- `GET /users/user-books?id={userId}&startDate={startDate}&endDate={endDate}`  
+  Returns the books borrowed by a specific user within the specified date range.
+
 ---
 
 ## Testing
