@@ -86,10 +86,5 @@ public class BookGrpcService : BookService.BookServiceBase
 
         return reply;
     }
-
-
-
-
-
 }
 

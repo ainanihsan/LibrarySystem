@@ -17,12 +17,8 @@ namespace LibrarySystem.API.Controllers
         public async Task<IActionResult> GetAllBooks()
         {
             var grpcRequest = new GetAllBooksRequest();
-
             var grpcResponse = await _grpcClient.GetAllBooksAsync(grpcRequest);
-
-            // Map gRPC response to API response as needed
             var books = grpcResponse.Books;
-
             return Ok(books);
         }
 
@@ -31,10 +27,7 @@ namespace LibrarySystem.API.Controllers
         {
             var grpcRequest = new GetMostBorrowedBooksRequest();            
             var grpcResponse = await _grpcClient.GetMostBorrowedBooksAsync(grpcRequest);
-
-            // Map gRPC response to API response as needed
             var books = grpcResponse.Books;
-
             return Ok(books);
         }
 
@@ -62,10 +55,7 @@ namespace LibrarySystem.API.Controllers
         {
             var grpcRequest = new GetOtherBooksBorrowedBySamePeopleRequest { BookId = bookId };
             var grpcResponse = await _grpcClient.GetOtherBooksBorrowedBySamePeopleAsync(grpcRequest);
-
-
             var books = grpcResponse.Book;
-
             return Ok(books);
         }
 
@@ -74,10 +64,7 @@ namespace LibrarySystem.API.Controllers
         {
             var grpcRequest = new GetReadingEstimateRequest { BookId = bookId };
             var grpcResponse = await _grpcClient.GetReadingEstimateAsync(grpcRequest);
-
-
             var rate = grpcResponse.AverageRate;
-
             return Ok(rate);
         }
 

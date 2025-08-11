@@ -112,7 +112,6 @@ namespace LibrarySystem.Tests
             var readingRate = await _bookService.GetReadingEstimate(bookId);
 
             // Assert
-            // Total days = 5 + 5 = 10, pages = 300 => 300 / 10 = 30 pages/day
             Assert.AreEqual(60, readingRate, 0.001);
         }
 

@@ -1,10 +1,7 @@
 using LibrarySystem.GrpcClient;
-using Grpc.Net.ClientFactory;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -33,4 +30,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// To facilitate testing
 public partial class Program { }

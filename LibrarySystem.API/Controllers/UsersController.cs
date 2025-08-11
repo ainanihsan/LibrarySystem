@@ -15,7 +15,6 @@ namespace LibrarySystem.API.Controllers
             _grpcClient = grpcClient;
         }
 
-
         [HttpGet("top-users")]
         public async Task<IActionResult> GetTopUsers(DateTime startDate, DateTime endDate)
         {
@@ -24,12 +23,8 @@ namespace LibrarySystem.API.Controllers
                 StartDate = Timestamp.FromDateTime(startDate.ToUniversalTime()),
                 EndDate = Timestamp.FromDateTime(endDate.ToUniversalTime())
             };
-
             var grpcResponse = await _grpcClient.GetTopUsersAsync(grpcRequest);
-
-            // Map gRPC response to API response as needed
             var users = grpcResponse.User;
-
             return Ok(users);
         }
         [HttpGet("user-books")]
@@ -41,12 +36,8 @@ namespace LibrarySystem.API.Controllers
                 StartDate = Timestamp.FromDateTime(startDate.ToUniversalTime()),
                 EndDate = Timestamp.FromDateTime(endDate.ToUniversalTime())
             };
-
             var grpcResponse = await _grpcClient.GetUserBorrowedBooksAsync(grpcRequest);
-
-            // Map gRPC response to API response as needed
             var books = grpcResponse.Book;
-
             return Ok(books);
         }
 
