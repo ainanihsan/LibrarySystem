@@ -14,6 +14,5 @@ namespace LibrarySystem.Shared.Application.Interfaces
         Task<(int, int)> GetBookStats(int id);
         Task<Books?> GetByIdAsync(int id);
         Task<IEnumerable<string>> GetOtherBooksBorrowedBySamePeople(int bookId);
-        //Task<double> GetReadingEstimate(int bookId);
     }
 }

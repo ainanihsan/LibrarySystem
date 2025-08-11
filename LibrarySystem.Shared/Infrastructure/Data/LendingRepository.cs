@@ -1,11 +1,6 @@
 ﻿using Dapper;
 using LibrarySystem.Shared.Application.Interfaces;
 using LibrarySystem.Shared.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibrarySystem.Shared.Infrastructure.Data
 {

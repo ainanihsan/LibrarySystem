@@ -7,12 +7,10 @@ namespace LibrarySystem.Shared.Infrastructure.Data
     public class BookRepository : IBookRepository
     {
         private readonly SqliteConnectionFactory _connectionFactory;
-        private readonly ILendingRepository _lendingRepository;
 
-        public BookRepository(SqliteConnectionFactory connectionFactory, ILendingRepository lendingRepository)
+        public BookRepository(SqliteConnectionFactory connectionFactory)
         {
             _connectionFactory = connectionFactory;
-            _lendingRepository = lendingRepository;
         }
 
         public async Task<IEnumerable<Books>> GetAllAsync()
@@ -73,11 +71,6 @@ namespace LibrarySystem.Shared.Infrastructure.Data
                );
             return booktitles;
         }
-
-        //public async Task<double> GetReadingEstimate(int bookId)
-        //{
-           
-        //}
 
         public Task<Books?> GetByIdAsync(int id)
         {

@@ -8,7 +8,6 @@ namespace LibrarySystem.API.Controllers
     public class BooksController : ControllerBase
     {
         private readonly BookService.BookServiceClient _grpcClient;
-
         public BooksController(BookService.BookServiceClient grpcClient)
         {
             _grpcClient = grpcClient;
