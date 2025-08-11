@@ -30,4 +30,23 @@ using UserService = LibrarySystem.GrpcService.UserService;
 
             return reply;
         }
+
+        public override async Task<GetUserBorrowedBooksReply> GetUserBorrowedBooks(GetUserBorrowedBooksRequest request,ServerCallContext context)
+    
+        {
+            var booktitles = await _userService.GetUserBorrowedBooks(request.Id, request.StartDate.ToDateTime(), request.EndDate.ToDateTime());
+
+            var reply = new GetUserBorrowedBooksReply();
+            foreach (var booktitle in booktitles)
+            {
+                reply.Book.Add(new Book
+                {
+                    Title = booktitle
+                });
+            }
+
+            return reply;
+
+        }
+
     }

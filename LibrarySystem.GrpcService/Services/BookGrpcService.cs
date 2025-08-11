@@ -50,6 +50,22 @@ public class BookGrpcService : BookService.BookServiceBase
         return reply;
     }
 
+    public override async Task<GetOtherBooksBorrowedBySamePeopleReply> GetOtherBooksBorrowedBySamePeople(GetOtherBooksBorrowedBySamePeopleRequest request, ServerCallContext context)
+    {
+        var booktitles = await _bookService.GetOtherBooksBorrowedBySamePeople(request.BookId);
+
+        var reply = new GetOtherBooksBorrowedBySamePeopleReply();
+        foreach (var booktitle in booktitles)
+        {
+            reply.Book.Add(new BookTitle
+            {
+                Booktitle = booktitle
+            });
+        }
+
+        return reply;
+    }
+
     public override async Task<GetBookStatsReply> GetBookStats(GetBookStatsRequest request, ServerCallContext context)
     {
         var books = await _bookService.GetBookStats(request.Id);

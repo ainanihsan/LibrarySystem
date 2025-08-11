@@ -58,7 +58,17 @@ namespace LibrarySystem.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet("book-same-people/{bookId}")]
+        public async Task<IActionResult> GetOtherBooksBorrowedBySamePeople(int bookId)
+        {
+            var grpcRequest = new GetOtherBooksBorrowedBySamePeopleRequest { BookId = bookId };
+            var grpcResponse = await _grpcClient.GetOtherBooksBorrowedBySamePeopleAsync(grpcRequest);
 
+
+            var books = grpcResponse.Book;
+
+            return Ok(books);
+        }
 
     }
 }

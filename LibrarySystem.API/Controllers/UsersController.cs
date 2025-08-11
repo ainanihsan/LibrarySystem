@@ -32,7 +32,23 @@ namespace LibrarySystem.API.Controllers
 
             return Ok(users);
         }
+        [HttpGet("user-books")]
+        public async Task<IActionResult> GetUserBorrowedBooks(int id, DateTime startDate, DateTime endDate)
+        {
+            var grpcRequest = new GetUserBorrowedBooksRequest
+            {
+                Id = id,
+                StartDate = Timestamp.FromDateTime(startDate.ToUniversalTime()),
+                EndDate = Timestamp.FromDateTime(endDate.ToUniversalTime())
+            };
 
+            var grpcResponse = await _grpcClient.GetUserBorrowedBooksAsync(grpcRequest);
+
+            // Map gRPC response to API response as needed
+            var books = grpcResponse.Book;
+
+            return Ok(books);
+        }
 
     }
 }

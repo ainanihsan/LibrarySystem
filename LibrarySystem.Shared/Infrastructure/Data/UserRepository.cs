@@ -22,7 +22,7 @@ namespace LibrarySystem.Shared.Infrastructure.Data
             using var connection = _connectionFactory.CreateConnection();
 
             string sql = "select u.Name, COUNT(*) as LendingCount " +
-                            "from Lendings l " +
+                            "FROM Lendings l " +
                             "INNER JOIN Users u ON u.Id = l.UserId " +
                             "WHERE l.BorrowDate BETWEEN @start AND @end " +
                             "GROUP BY l.UserId";
@@ -33,6 +33,25 @@ namespace LibrarySystem.Shared.Infrastructure.Data
                );
             return users;
         }
+
+        public async Task<IEnumerable<string>> GetUserBorrowedBooks(int id, DateTime start, DateTime end)
+        {
+            using var connection = _connectionFactory.CreateConnection();
+
+            string sql = "select b.title " +
+                         "FROM Lendings l " +
+                         "INNER JOIN Books b ON l.BookID = b.Id " +
+                         "WHERE l.UserID = @id " +
+                         "and BorrowDate between @start and @end";
+
+            var booktitles = await connection.QueryAsync<string>(
+                   sql,
+                   new { id, start, end } // passing parameters to Dapper
+               );
+            return booktitles;
+        }
+
+
 
         }
 }

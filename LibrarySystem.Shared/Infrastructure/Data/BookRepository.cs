@@ -54,7 +54,23 @@ namespace LibrarySystem.Shared.Infrastructure.Data
             return result;
         }
 
+        public async Task<IEnumerable<string>> GetOtherBooksBorrowedBySamePeople(int bookId)
+        {
+            using var connection = _connectionFactory.CreateConnection();
 
+            string sql = "SELECT DISTINCT b.Title " +
+            "FROM Lendings l1 "+
+            "INNER JOIN Lendings l2 ON l1.UserId = l2.UserId "+
+            "INNER JOIN Books b ON l2.BookId = b.Id "+
+            "WHERE l1.BookId = @bookId "+
+            "AND l2.BookId <> @bookId;";
+
+            var booktitles = await connection.QueryAsync<string>(
+                   sql,
+                   new { bookId }
+               );
+            return booktitles;
+        }
 
         public Task<Books?> GetByIdAsync(int id)
         {

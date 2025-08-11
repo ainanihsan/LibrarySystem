@@ -22,7 +22,11 @@ namespace LibrarySystem.Shared.Application.Services
             return await _userRepository.GetTopUsers(start,end);
         }
 
+        public async Task<IEnumerable<string>> GetUserBorrowedBooks(int id, DateTime start, DateTime end)
 
+        {
+            return await _userRepository.GetUserBorrowedBooks(id,start,end);
+        }
 
     }
 }

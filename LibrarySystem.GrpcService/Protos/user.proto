@@ -7,7 +7,10 @@ import "google/protobuf/timestamp.proto";
 
 service UserService {
   rpc GetTopUsers (GetTopUsersRequest) returns (GetTopUsersReply);
+  rpc GetUserBorrowedBooks(GetUserBorrowedBooksRequest) returns (GetUserBorrowedBooksReply);
 }
+
+//..................Get top users in date range....................
 
 message User
 {
@@ -22,4 +25,21 @@ message GetTopUsersRequest{
 
 message GetTopUsersReply{
 	repeated User user = 1;
+}
+
+//....................Get books for user in date range...............
+
+message Book
+{
+	string title = 1;
+}
+
+
+message GetUserBorrowedBooksRequest{
+	google.protobuf.Timestamp startDate = 1;
+	google.protobuf.Timestamp endDate = 2;
+	int32 id = 3;
+}
+message GetUserBorrowedBooksReply{
+	repeated Book book = 1;
 }
