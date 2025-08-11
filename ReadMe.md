@@ -55,7 +55,7 @@ The API will start listening on https://localhost:7077.
 - `GET /books/book-same-people/{bookId}`  
   Returns other books borrowed by the same people who borrowed the specified book.
 
-  - `GET /books/reading-estimate/{bookId}`  
+- `GET /books/reading-estimate/{bookId}`  
   Returns the average reading rate (pages per day) for the specified book.
 
 ### UsersController (`/users`)
