@@ -10,13 +10,15 @@ namespace LibrarySystem.Tests
     public class BookServiceTests
     {
         private Mock<IBookRepository> _bookRepositoryMock;
+        private Mock<ILendingRepository> _lendingRepositoryMock;
         private IBookService _bookService;
 
         [TestInitialize]
         public void Setup()
         {
             _bookRepositoryMock = new Mock<IBookRepository>();
-            _bookService = new BookService(_bookRepositoryMock.Object);
+            _lendingRepositoryMock = new Mock<ILendingRepository>();
+            _bookService = new BookService(_bookRepositoryMock.Object,_lendingRepositoryMock.Object);
         }
 
         [TestMethod]
@@ -89,6 +91,30 @@ namespace LibrarySystem.Tests
             Assert.AreEqual(borrowedCount, result.Item2);
         }
 
+        [TestMethod]
+        public async Task CalculateReadingRateAsync_ReturnsCorrectReadingRate()
+        {
+            // Arrange
+            int bookId = 1;
+
+            var borrowRecords = new List<LendingRecord>
+            {
+                new LendingRecord { BorrowDate = new DateTime(2024, 7, 1), ReturnDate = new DateTime(2024, 7, 6), Pages = 300 },  // 5 days reading
+                new LendingRecord { BorrowDate = new DateTime(2024, 7, 10), ReturnDate = new DateTime(2024, 7, 15), Pages = 300 }, // 5 days reading
+                new LendingRecord { BorrowDate = new DateTime(2024, 7, 20), ReturnDate = DateTime.MinValue, Pages = 300 } // ignored because ReturnDate is set to a default value
+            };
+
+            _lendingRepositoryMock
+                .Setup(repo => repo.GetBorrowRecordsForBook(bookId))
+                .ReturnsAsync(borrowRecords);
+
+            // Act
+            var readingRate = await _bookService.GetReadingEstimate(bookId);
+
+            // Assert
+            // Total days = 5 + 5 = 10, pages = 300 => 300 / 10 = 30 pages/day
+            Assert.AreEqual(60, readingRate, 0.001);
+        }
 
 
     }

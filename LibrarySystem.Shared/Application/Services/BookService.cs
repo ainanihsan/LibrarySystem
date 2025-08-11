@@ -9,10 +9,12 @@ namespace LibrarySystem.Shared.Application.Services
     public class BookService : IBookService
     {
         private readonly IBookRepository _bookRepository;
+        private readonly ILendingRepository _lendingRepository;
 
-        public BookService(IBookRepository bookRepository)
+        public BookService(IBookRepository bookRepository, ILendingRepository lendingRepository)
         {
             _bookRepository = bookRepository;
+            _lendingRepository = lendingRepository;
         }
 
         public async Task<IEnumerable<Books>> GetAllBooksAsync()
@@ -33,6 +35,36 @@ namespace LibrarySystem.Shared.Application.Services
         public async Task<(int, int)> GetBookStats(int id)
         {
             return await _bookRepository.GetBookStats(id);
+        }
+
+        public async Task<double> GetReadingEstimate(int bookId)
+        {
+            var lendingRecords = await _lendingRepository.GetBorrowRecordsForBook(bookId);
+
+            if (!lendingRecords.Any())
+                throw new InvalidOperationException("No borrow records found for this book.");
+
+            double totalRate = 0;
+            int count = 0;
+
+            foreach (var record in lendingRecords)
+            {
+                if (record.ReturnDate.ToString() == null || record.ReturnDate <= record.BorrowDate)
+                    continue; // skip invalid records
+
+                var days = (record.ReturnDate - record.BorrowDate).TotalDays;
+                if (days <= 0)
+                    continue;
+
+                double rate = record.Pages / days;
+                totalRate += rate;
+                count++;
+            }
+
+            if (count == 0)
+                throw new InvalidOperationException("No valid borrow records to calculate reading rate.");
+
+            return totalRate / count; // average rate
         }
 
         public async Task<Books?> GetBookByIdAsync(int id)

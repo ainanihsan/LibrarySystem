@@ -66,6 +66,14 @@ public class BookGrpcService : BookService.BookServiceBase
         return reply;
     }
 
+    public override async Task<GetReadingEstimateReply> GetReadingEstimate(GetReadingEstimateRequest request, ServerCallContext context)
+    {
+        var rate = await _bookService.GetReadingEstimate(request.BookId);
+        var reply = new GetReadingEstimateReply();
+        reply.AverageRate = rate;
+        return reply;
+    }
+
     public override async Task<GetBookStatsReply> GetBookStats(GetBookStatsRequest request, ServerCallContext context)
     {
         var books = await _bookService.GetBookStats(request.Id);

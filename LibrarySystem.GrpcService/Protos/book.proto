@@ -7,6 +7,7 @@ service BookService {
   rpc GetMostBorrowedBooks(GetMostBorrowedBooksRequest) returns (GetMostBorrowedBooksReply);
   rpc GetBookStats(GetBookStatsRequest) returns (GetBookStatsReply);
   rpc GetOtherBooksBorrowedBySamePeople(GetOtherBooksBorrowedBySamePeopleRequest) returns (GetOtherBooksBorrowedBySamePeopleReply);
+  rpc GetReadingEstimate(GetReadingEstimateRequest) returns (GetReadingEstimateReply);
 }
 
 // ...................... Get all books .....................
@@ -59,4 +60,14 @@ message GetOtherBooksBorrowedBySamePeopleRequest{
 
 message GetOtherBooksBorrowedBySamePeopleReply{
 	repeated BookTitle book = 1;
+}
+
+//...........................Get reading Estimate for a book...........................
+
+message GetReadingEstimateRequest{
+	int32 bookId = 1;
+}
+
+message GetReadingEstimateReply{
+	double averageRate  = 1;
 }

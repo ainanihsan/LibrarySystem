@@ -15,6 +15,7 @@ builder.Services.AddGrpc();
 builder.Services.AddSingleton(new SqliteConnectionFactory("Data Source=library.db"));
 builder.Services.AddTransient<IBookRepository,BookRepository>();
 builder.Services.AddTransient<IUserRepository,UserRepository>();
+builder.Services.AddTransient<ILendingRepository,LendingRepository>();
 builder.Services.AddTransient<IBookService, BookService>();
 builder.Services.AddTransient<IUserService, UserService>();
 

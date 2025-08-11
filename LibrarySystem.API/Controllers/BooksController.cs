@@ -70,5 +70,17 @@ namespace LibrarySystem.API.Controllers
             return Ok(books);
         }
 
+        [HttpGet("reading-estimate/{bookId}")]
+        public async Task<IActionResult> GetReadingEstimate(int bookId)
+        {
+            var grpcRequest = new GetReadingEstimateRequest { BookId = bookId };
+            var grpcResponse = await _grpcClient.GetReadingEstimateAsync(grpcRequest);
+
+
+            var rate = grpcResponse.AverageRate;
+
+            return Ok(rate);
+        }
+
     }
 }
