@@ -1,7 +1,7 @@
-﻿using Grpc.Core;
-using LibrarySystem.API;
+﻿
+using Grpc.Core;
 using LibrarySystem.API.Controllers;
-using LibrarySystem.GrpcService;
+using LibrarySystem.GrpcClient;
 using LibrarySystem.Shared.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;

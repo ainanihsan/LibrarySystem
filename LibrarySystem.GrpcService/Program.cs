@@ -16,8 +16,8 @@ builder.Services.AddSingleton(new SqliteConnectionFactory("Data Source=library.d
 builder.Services.AddTransient<IBookRepository,BookRepository>();
 builder.Services.AddTransient<IUserRepository,UserRepository>();
 builder.Services.AddTransient<ILendingRepository,LendingRepository>();
-builder.Services.AddTransient<IBookService, BookService>();
-builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IBookServices, BookServices>();
+builder.Services.AddTransient<IUserServices, UserServices>();
 
 // Register DatabaseInitializer and DatabaseSeeder
 builder.Services.AddTransient<DatabaseInitializer>();

@@ -7,9 +7,9 @@ using UserService = LibrarySystem.GrpcService.UserService;
 
     public class UserGrpcService : UserService.UserServiceBase
     {
-        private readonly IUserService _userService;
+        private readonly IUserServices _userService;
 
-        public UserGrpcService(IUserService userService)
+        public UserGrpcService(IUserServices userService)
         {
             _userService = userService;
         }

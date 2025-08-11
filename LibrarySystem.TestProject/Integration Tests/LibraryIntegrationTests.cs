@@ -3,6 +3,7 @@ using LibrarySystem.Shared.Application.Interfaces;
 using LibrarySystem.Shared.Application.Services;
 using LibrarySystem.Shared.Infrastructure.Data;
 using Microsoft.Data.Sqlite;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SQLitePCL;
 using System.Data;
 
@@ -16,7 +17,7 @@ public class BookIntegrationTests
     private SqliteConnectionFactory _connectionFactory;
     private IBookRepository _bookRepository;
     private ILendingRepository _lendingRepository;
-    private IBookService _bookService;
+    private IBookServices _bookService;
 
     [TestInitialize]
     public async Task Setup()
@@ -94,8 +95,8 @@ public class BookIntegrationTests
 
         _connectionFactory = new SqliteConnectionFactory(SharedConnString);
         _lendingRepository = new LendingRepository(_connectionFactory);
-        _bookRepository = new BookRepository(_connectionFactory, _lendingRepository);
-        _bookService = new BookService(_bookRepository, _lendingRepository);
+        _bookRepository = new BookRepository(_connectionFactory);
+        _bookService = new BookServices(_bookRepository, _lendingRepository);
     }
 
     [TestCleanup]

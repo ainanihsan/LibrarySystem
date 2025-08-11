@@ -8,9 +8,9 @@ using BookService = LibrarySystem.GrpcService.BookService;
 
 public class BookGrpcService : BookService.BookServiceBase
 {
-    private readonly IBookService _bookService;
+    private readonly IBookServices _bookService;
 
-    public BookGrpcService(IBookService bookService)
+    public BookGrpcService(IBookServices bookService)
     {
         _bookService = bookService;
     }

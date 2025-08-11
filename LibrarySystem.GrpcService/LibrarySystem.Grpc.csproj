@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LibrarySystem.Application\LibrarySystem.Shared.csproj" />
     <ProjectReference Include="..\LibrarySystem.Shared\LibrarySystem.Shared.csproj" />
   </ItemGroup>
 

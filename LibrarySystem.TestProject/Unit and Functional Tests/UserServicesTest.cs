@@ -9,13 +9,13 @@ namespace LibrarySystem.Tests
     public class UserServiceTests
     {
         private Mock<IUserRepository> _userRepositoryMock;
-        private IUserService _userService;
+        private IUserServices _userService;
 
         [TestInitialize]
         public void Setup()
         {
             _userRepositoryMock = new Mock<IUserRepository>();
-            _userService = new UserService(_userRepositoryMock.Object);
+            _userService = new UserServices(_userRepositoryMock.Object);
         }
 
         [TestMethod]

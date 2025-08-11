@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace LibrarySystem.Shared.Application.Services
 {
-    public class UserService : IUserService
+    public class UserServices : IUserServices
     {
         private readonly IUserRepository _userRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserServices(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

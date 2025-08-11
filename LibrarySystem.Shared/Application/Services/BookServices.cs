@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace LibrarySystem.Shared.Application.Services
 {
-    public class BookService : IBookService
+    public class BookServices : IBookServices
     {
         private readonly IBookRepository _bookRepository;
         private readonly ILendingRepository _lendingRepository;
 
-        public BookService(IBookRepository bookRepository, ILendingRepository lendingRepository)
+        public BookServices(IBookRepository bookRepository, ILendingRepository lendingRepository)
         {
             _bookRepository = bookRepository;
             _lendingRepository = lendingRepository;

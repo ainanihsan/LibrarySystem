@@ -1,5 +1,5 @@
 ﻿using Google.Protobuf.WellKnownTypes;
-using LibrarySystem.GrpcService;
+using LibrarySystem.GrpcClient;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibrarySystem.API.Controllers

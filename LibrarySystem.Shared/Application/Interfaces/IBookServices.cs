@@ -3,7 +3,7 @@ using LibrarySystem.Shared.Domain;
 
 namespace LibrarySystem.Shared.Application.Interfaces
 {
-    public interface IBookService
+    public interface IBookServices
     {
         Task<IEnumerable<Books>> GetAllBooksAsync();
         Task<IEnumerable<(string, int)>> GetMostBorrowedBooksAsync();

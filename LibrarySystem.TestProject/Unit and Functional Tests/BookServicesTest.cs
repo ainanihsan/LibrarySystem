@@ -11,14 +11,14 @@ namespace LibrarySystem.Tests
     {
         private Mock<IBookRepository> _bookRepositoryMock;
         private Mock<ILendingRepository> _lendingRepositoryMock;
-        private IBookService _bookService;
+        private IBookServices _bookService;
 
         [TestInitialize]
         public void Setup()
         {
             _bookRepositoryMock = new Mock<IBookRepository>();
             _lendingRepositoryMock = new Mock<ILendingRepository>();
-            _bookService = new BookService(_bookRepositoryMock.Object,_lendingRepositoryMock.Object);
+            _bookService = new BookServices(_bookRepositoryMock.Object,_lendingRepositoryMock.Object);
         }
 
         [TestMethod]
