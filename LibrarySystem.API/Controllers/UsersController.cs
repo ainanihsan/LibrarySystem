@@ -9,9 +9,9 @@ namespace LibrarySystem.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserService.UserServiceClient _grpcClient;
-        private ILogger _logger;
+        private ILogger<UsersController> _logger;
 
-        public UsersController(UserService.UserServiceClient grpcClient, ILogger logger)
+        public UsersController(UserService.UserServiceClient grpcClient, ILogger<UsersController> logger)
         {
             _grpcClient = grpcClient;
             _logger = logger;

@@ -4,6 +4,7 @@ using LibrarySystem.API.Controllers;
 using LibrarySystem.GrpcClient;
 using LibrarySystem.Shared.Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 
@@ -14,11 +15,13 @@ namespace LibrarySystem.TestProject
     {
         private BooksController booksController;
         private Mock<BookService.BookServiceClient> grpcClientMock;
+        private ILogger<BooksController> logger;
 
         [TestInitialize]
         public void Setup()
         {
             grpcClientMock = new Mock<BookService.BookServiceClient>();
+            logger = new NullLogger<BooksController>();
 
             grpcClientMock
                 .Setup(c => c.GetAllBooksAsync(
@@ -37,8 +40,7 @@ namespace LibrarySystem.TestProject
                     () => { }
             ));
 
-
-            booksController = new BooksController(grpcClientMock.Object);
+            booksController = new BooksController(grpcClientMock.Object, logger);
         }
 
         [TestMethod]

@@ -8,9 +8,9 @@ namespace LibrarySystem.API.Controllers
     public class BooksController : ControllerBase
     {
         private readonly BookService.BookServiceClient _grpcClient;
-        private ILogger _logger;
+        private readonly ILogger<BooksController> _logger;
 
-        public BooksController(BookService.BookServiceClient grpcClient , ILogger logger)
+        public BooksController(BookService.BookServiceClient grpcClient, ILogger<BooksController> logger)
         {
             _grpcClient = grpcClient;
             _logger = logger;
